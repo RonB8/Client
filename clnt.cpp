@@ -27,7 +27,7 @@ int main() {
         return 1;
     }
 
-    const char* msg = "Hi dear server!";
+    const char* msg = "Hi dear server, whatsup??!";
     if (send(clientSocket, msg, strlen(msg), 0) < 0) {
         cerr << "Error sending data: " << strerror(errno) << endl;
     }
