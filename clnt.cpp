@@ -19,7 +19,7 @@ int main(){
 
     //sending
     const char* msg = "Hi dear client!";
-    send(clientSocket, msg, strlen(msg), 0)
+    send(clientSocket, msg, strlen(msg), 0);
 
     //close socket
      close(clientSocket);
