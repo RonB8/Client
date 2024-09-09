@@ -4,6 +4,8 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <cstring>
+#include <cerrno> // או #include <errno.h>
+
 
 using namespace std;
 
