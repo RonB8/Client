@@ -3,27 +3,33 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <unistd.h>
-#include <cerrno>
 #include <cstring>
 
-int main(){
+using namespace std;
 
-    //client syntax
+int main() {
     int clientSocket = socket(AF_INET, SOCK_STREAM, 0);
+    if (clientSocket < 0) {
+        cerr << "Error creating socket: " << strerror(errno) << endl;
+        return 1;
+    }
 
-    //address
     sockaddr_in serverAddress;
     serverAddress.sin_family = AF_INET;
     serverAddress.sin_port = htons(8080);
-    serverAddress.sin_addr.s_addr = INADDR_ANY;
+    serverAddress.sin_addr.s_addr = inet_addr("127.0.0.1"); // כתובת ה-IP של השרת (localhost)
 
-    //sending
-    const char* msg = "Hi dear client!";
-    send(clientSocket, msg, strlen(msg), 0);
+    if (connect(clientSocket, (struct sockaddr*)&serverAddress, sizeof(serverAddress)) < 0) {
+        cerr << "Error connecting to server: " << strerror(errno) << endl;
+        close(clientSocket);
+        return 1;
+    }
 
-    //close socket
-     close(clientSocket);
+    const char* msg = "Hi dear server!";
+    if (send(clientSocket, msg, strlen(msg), 0) < 0) {
+        cerr << "Error sending data: " << strerror(errno) << endl;
+    }
 
-
+    close(clientSocket);
     return 0;
 }
