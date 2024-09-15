@@ -5,7 +5,6 @@
 #include <unistd.h>
 #include <cstring>
 #include <cerrno> // או #include <errno.h>
-#include <boost>
 
 
 using namespace std;
@@ -31,8 +30,10 @@ int main() {
     const char* msg = "Hi dear server, whatsup??!";
     if (send(clientSocket, msg, strlen(msg), 0) < 0) {
         cerr << "Error sending data: " << strerror(errno) << endl;
+        }
     }
-
+    printf("%s\n", buffer);
+    
     close(clientSocket);
     return 0;
 }
