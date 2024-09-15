@@ -32,7 +32,6 @@ int main() {
         cerr << "Error sending data: " << strerror(errno) << endl;
         }
     
-    printf("%s\n", buffer);
     
     close(clientSocket);
     return 0;
